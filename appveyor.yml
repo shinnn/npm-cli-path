@@ -1,0 +1,55 @@
+shallow_clone: true
+version: '{build}'
+skip_tags: true
+environment:
+  matrix:
+    -
+      nodejs_version: '5'
+      npm_version: '3.4.0'
+      another_npm_version: '3.3.12'
+      COVERALLS_REPO_TOKEN:
+        secure: sL6Zzmwo7A1Hw7dniqi9n+AdBcx59/7h0LBIt9VlebEPqTq0WtSRrLgEw443w33j
+      COVERALLS_SERVICE_NAME: AppVeyor
+      COVERALLS_SERVICE_JOB_ID: '%APPVEYOR_JOB_ID%'
+      COVERALLS_GIT_BRANCH: '%APPVEYOR_REPO_BRANCH%'
+      COVERALLS_GIT_COMMIT: '%APPVEYOR_REPO_COMMIT%'
+    -
+      nodejs_version: '0'
+      npm_version: '2.14.10'
+      another_npm_version: '2.13.5'
+    -
+      nodejs_version: '0.10'
+      npm_version: '1.4.27'
+      another_npm_version: '1.4.26'
+install:
+  - ps: Install-Product node $env:nodejs_version
+  - 'npm --version # Original npm version'
+  - npm install --global npm@%npm_version%
+  - set PATH=%APPDATA%\npm;%PATH%
+  - 'npm --version # User-installed npm version'
+  - >-
+      node -e "
+      var fs = require('fs');
+      var pkg = JSON.parse(fs.readFileSync('package.json', 'utf8'));
+      var devDeps = pkg.devDependencies;
+      delete devDeps['@shinnn/eslint-config-node-legacy'];
+      delete devDeps.eslint;
+      fs.writeFileSync('package.json', JSON.stringify(pkg));"
+  - npm install
+matrix:
+  fast_finish: true
+build: off
+test_script:
+  - node node_modules\istanbul\lib\cli.js cover --dir=cov0 tests\posix.js
+  - node node_modules\istanbul\lib\cli.js cover --dir=cov1 tests\no-npm.js
+  - npm config set prefix --global tmp
+  - npm config get prefix --global
+  - npm install --global npm@%another_npm_version%
+  - node node_modules\istanbul\lib\cli.js cover --dir=cov2 tests\win-has-user-npm.js
+  - node node_modules\istanbul\lib\cli.js cover --dir=cov3 tests\win-has-broken-user-npm.js
+  - npm config set prefix --global foobarbazqux
+  - npm config get prefix --global
+  - node node_modules\istanbul\lib\cli.js cover --dir=cov4 tests\win-preinstalled-npm.js
+on_success:
+  - ps: If ($env:COVERALLS_REPO_TOKEN) {Invoke-Expression 'npm run-script coveralls'}
+cache: node_modules -> package.json
