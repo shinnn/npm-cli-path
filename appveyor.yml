@@ -5,8 +5,8 @@ environment:
   matrix:
     -
       nodejs_version: '5'
-      npm_version: '3.4.0'
-      another_npm_version: '3.3.12'
+      npm_version: '3.8.6'
+      another_npm_version: '3.8.5'
       COVERALLS_REPO_TOKEN:
         secure: sL6Zzmwo7A1Hw7dniqi9n+AdBcx59/7h0LBIt9VlebEPqTq0WtSRrLgEw443w33j
       COVERALLS_SERVICE_NAME: AppVeyor
@@ -15,8 +15,8 @@ environment:
       COVERALLS_GIT_COMMIT: '%APPVEYOR_REPO_COMMIT%'
     -
       nodejs_version: '0'
-      npm_version: '2.14.10'
-      another_npm_version: '2.13.5'
+      npm_version: '2.15.2'
+      another_npm_version: '2.15.1'
     -
       nodejs_version: '0.10'
       npm_version: '1.4.27'
