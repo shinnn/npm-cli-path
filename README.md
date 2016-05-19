@@ -12,7 +12,7 @@ Resolve the path of [`npm-cli.js`][npm-cli] included in the globally installed [
 ```javascript
 const npmCliPath = require('npm-cli-path');
 
-npmCliPath().then(result) => {
+npmCliPath().then(result => {
   result; //=> '/usr/local/lib/node_modules/npm/bin/npm-cli.js'
 });
 ```
@@ -39,7 +39,7 @@ It resolves the path of [`npm-cli.js`][npm-cli] which is the entry point of [npm
 
 ## License
 
-Copyright (c) 2015 [Shinnosuke Watanabe](https://github.com/shinnn)
+Copyright (c) 2015 -2016 [Shinnosuke Watanabe](https://github.com/shinnn)
 
 Licensed under [the MIT License](./LICENSE).
 
