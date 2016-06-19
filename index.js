@@ -4,45 +4,44 @@
 */
 'use strict';
 
-var realExecutablePath = require('real-executable-path');
+const realExecutablePath = require('real-executable-path');
 
-var getNpmCliPath = realExecutablePath('npm');
+const getNpmCliPath = realExecutablePath('npm');
 
 if (process.platform !== 'win32') {
   module.exports = function npmCliPath() {
     return getNpmCliPath;
   };
 } else {
-  var path = require('path');
+  const path = require('path');
 
-  var PinkiePromise = require('pinkie-promise');
-  var winUserInstalledNpmCliPath = require('win-user-installed-npm-cli-path');
+  const winUserInstalledNpmCliPath = require('win-user-installed-npm-cli-path');
 
-  var getPreinstalledNpmCliPath = getNpmCliPath.then(function(cmdPath) {
-    return PinkiePromise.resolve(path.join(path.dirname(cmdPath), 'node_modules\\npm\\bin\\npm-cli.js'));
+  const getPreinstalledNpmCliPath = getNpmCliPath.then(cmdPath => {
+    return Promise.resolve(path.join(path.dirname(cmdPath), 'node_modules\\npm\\bin\\npm-cli.js'));
   });
 
-  var getUserInstalledCliPath = winUserInstalledNpmCliPath()
-  .then(PinkiePromise.resolve.bind(PinkiePromise), function(err) {
+  const getUserInstalledCliPath = winUserInstalledNpmCliPath()
+  .then(Promise.resolve.bind(Promise), err => {
     if (/lstat .*\\node_modules\\npm\\bin\\npm-cli\.js/.test(err.message)) {
-      return PinkiePromise.resolve(null);
+      return Promise.resolve(null);
     }
 
-    return PinkiePromise.reject(err);
+    return Promise.reject(err);
   });
 
   module.exports = function npmCliPath() {
-    return PinkiePromise.all([
+    return Promise.all([
       getPreinstalledNpmCliPath,
       getUserInstalledCliPath
-    ]).then(function(results) {
-      var userInstalledCliPath = results[1];
+    ]).then(results => {
+      const userInstalledCliPath = results[1];
 
       if (userInstalledCliPath) {
-        return PinkiePromise.resolve(userInstalledCliPath);
+        return Promise.resolve(userInstalledCliPath);
       }
 
-      return PinkiePromise.resolve(results[0]);
+      return Promise.resolve(results[0]);
     });
   };
 }

@@ -4,9 +4,9 @@ skip_tags: true
 environment:
   matrix:
     -
-      nodejs_version: '6'
-      npm_version: '3.9.0'
-      another_npm_version: '3.8.9'
+      nodejs_version: Stable
+      npm_version: '3.10.1'
+      another_npm_version: '3.10.0'
       COVERALLS_REPO_TOKEN:
         secure: sL6Zzmwo7A1Hw7dniqi9n+AdBcx59/7h0LBIt9VlebEPqTq0WtSRrLgEw443w33j
       COVERALLS_SERVICE_NAME: AppVeyor
@@ -14,27 +14,16 @@ environment:
       COVERALLS_GIT_BRANCH: '%APPVEYOR_REPO_BRANCH%'
       COVERALLS_GIT_COMMIT: '%APPVEYOR_REPO_COMMIT%'
     -
-      nodejs_version: '0'
-      npm_version: '2.15.2'
-      another_npm_version: '2.15.1'
-    -
-      nodejs_version: '0.10'
-      npm_version: '1.4.27'
-      another_npm_version: '1.4.26'
+      nodejs_version: LTS
+      npm_version: '2.15.8'
+      another_npm_version: '2.15.7'
 install:
   - ps: Install-Product node $env:nodejs_version
   - 'npm --version # Original npm version'
   - npm install --global npm@%npm_version%
   - set PATH=%APPDATA%\npm;%PATH%
   - 'npm --version # User-installed npm version'
-  - >-
-      node -e "
-      var fs = require('fs');
-      var pkg = JSON.parse(fs.readFileSync('package.json', 'utf8'));
-      var devDeps = pkg.devDependencies;
-      delete devDeps['@shinnn/eslint-config-node-legacy'];
-      delete devDeps.eslint;
-      fs.writeFileSync('package.json', JSON.stringify(pkg));"
+  - npm uninstall --save-dev @shinnn/eslint-config-node eslint
   - npm install
 matrix:
   fast_finish: true
