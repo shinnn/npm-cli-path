@@ -4,8 +4,6 @@
 [![Build Status](https://travis-ci.org/shinnn/npm-cli-path.svg?branch=master)](https://travis-ci.org/shinnn/npm-cli-path)
 [![Build status](https://ci.appveyor.com/api/projects/status/8osd3at404d3jrxi/branch/master?svg=true)](https://ci.appveyor.com/project/ShinnosukeWatanabe/npm-cli-path/branch/master)
 [![Coverage Status](https://img.shields.io/coveralls/shinnn/npm-cli-path.svg)](https://coveralls.io/github/shinnn/npm-cli-path?branch=master)
-[![Dependency Status](https://david-dm.org/shinnn/npm-cli-path.svg)](https://david-dm.org/shinnn/npm-cli-path)
-[![devDependency Status](https://david-dm.org/shinnn/npm-cli-path/dev-status.svg)](https://david-dm.org/shinnn/npm-cli-path#info=devDependencies)
 
 Resolve the path of [`npm-cli.js`][npm-cli] included in the globally installed [npm](https://www.npmjs.com/) CLI
 
@@ -39,7 +37,7 @@ It resolves the path of [`npm-cli.js`][npm-cli] which is the entry point of [npm
 
 ## License
 
-Copyright (c) 2015 - 2016 [Shinnosuke Watanabe](https://github.com/shinnn)
+Copyright (c) 2015 - 2017 [Shinnosuke Watanabe](https://github.com/shinnn)
 
 Licensed under [the MIT License](./LICENSE).
 

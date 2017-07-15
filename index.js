@@ -13,18 +13,21 @@ if (process.platform !== 'win32') {
     return getNpmCliPath;
   };
 } else {
-  const path = require('path');
+  const pathLib = require('path');
+
+  const dirname = pathLib.dirname;
+  const join = pathLib.join;
 
   const winUserInstalledNpmCliPath = require('win-user-installed-npm-cli-path');
 
   const getPreinstalledNpmCliPath = getNpmCliPath.then(cmdPath => {
-    return Promise.resolve(path.join(path.dirname(cmdPath), 'node_modules\\npm\\bin\\npm-cli.js'));
+    return path.join(path.dirname(cmdPath), 'node_modules\\npm\\bin\\npm-cli.js');
   });
 
   const getUserInstalledCliPath = winUserInstalledNpmCliPath()
   .then(Promise.resolve.bind(Promise), err => {
     if (/lstat .*\\node_modules\\npm\\bin\\npm-cli\.js/.test(err.message)) {
-      return Promise.resolve(null);
+      return null;
     }
 
     return Promise.reject(err);
@@ -37,11 +40,7 @@ if (process.platform !== 'win32') {
     ]).then(results => {
       const userInstalledCliPath = results[1];
 
-      if (userInstalledCliPath) {
-        return Promise.resolve(userInstalledCliPath);
-      }
-
-      return Promise.resolve(results[0]);
+      return userInstalledCliPath || results[0];
     });
   };
 }
