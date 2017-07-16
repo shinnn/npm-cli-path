@@ -21,7 +21,7 @@ if (process.platform !== 'win32') {
   const winUserInstalledNpmCliPath = require('win-user-installed-npm-cli-path');
 
   const getPreinstalledNpmCliPath = getNpmCliPath.then(cmdPath => {
-    return path.join(path.dirname(cmdPath), 'node_modules\\npm\\bin\\npm-cli.js');
+    return join(dirname(cmdPath), 'node_modules\\npm\\bin\\npm-cli.js');
   });
 
   const getUserInstalledCliPath = winUserInstalledNpmCliPath()

@@ -34,17 +34,17 @@
   ],
   "dependencies": {
     "real-executable-path": "^2.0.0",
-    "win-user-installed-npm-cli-path": "^2.0.0"
+    "win-user-installed-npm-cli-path": "^2.0.1"
   },
   "devDependencies": {
-    "@shinnn/eslint-config-node": "^3.0.0",
-    "eslint": "^3.14.1",
+    "@shinnn/eslint-config-node": "^4.0.2",
+    "eslint": "^4.2.0",
     "graceful-fs": "^4.1.11",
     "istanbul": "^0.4.5",
     "istanbul-coveralls": "^1.0.3",
-    "pify": "^2.3.0",
-    "pretend-platform": "^1.0.1",
-    "tape": "^4.6.3"
+    "pify": "^3.0.0",
+    "pretend-platform": "^2.0.0",
+    "tape": "^4.7.0"
   },
   "eslintConfig": {
     "extends": "@shinnn/node"
