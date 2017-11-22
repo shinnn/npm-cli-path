@@ -1,12 +1,11 @@
 shallow_clone: true
-version: '{build}'
 skip_tags: true
 environment:
   matrix:
     -
       nodejs_version: Stable
-      npm_version: '3.10.1'
-      another_npm_version: '3.10.0'
+      npm_version: '5.5.1'
+      another_npm_version: '5.5.0'
       COVERALLS_REPO_TOKEN:
         secure: sL6Zzmwo7A1Hw7dniqi9n+AdBcx59/7h0LBIt9VlebEPqTq0WtSRrLgEw443w33j
       COVERALLS_SERVICE_NAME: AppVeyor
@@ -15,15 +14,14 @@ environment:
       COVERALLS_GIT_COMMIT: '%APPVEYOR_REPO_COMMIT%'
     -
       nodejs_version: LTS
-      npm_version: '2.15.8'
-      another_npm_version: '2.15.7'
+      npm_version: '4.5.0'
+      another_npm_version: '4.4.4'
 install:
   - ps: Install-Product node $env:nodejs_version
   - 'npm --version # Original npm version'
   - npm install --global npm@%npm_version%
   - set PATH=%APPDATA%\npm;%PATH%
   - 'npm --version # User-installed npm version'
-  - npm uninstall --save-dev @shinnn/eslint-config-node eslint
   - npm install
 matrix:
   fast_finish: true
@@ -41,4 +39,3 @@ test_script:
   - node node_modules\istanbul\lib\cli.js cover --dir=cov4 tests\win-preinstalled-npm.js
 on_success:
   - ps: If ($env:COVERALLS_REPO_TOKEN) {Invoke-Expression 'npm run-script coveralls'}
-cache: node_modules -> package.json
