@@ -1,7 +1,3 @@
-/*!
- * npm-cli-path | MIT (c) Shinnosuke Watanabe
- * https://github.com/shinnn/npm-cli-path
-*/
 'use strict';
 
 const realExecutablePath = require('real-executable-path');
