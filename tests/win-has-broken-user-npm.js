@@ -1,28 +1,28 @@
 'use strict';
 
-const path = require('path');
+const {join} = require('path');
+const {promisify} = require('util');
 
-const fs = require('graceful-fs');
+const {mkdir, unlink} = require('graceful-fs');
 const npmCliPath = require('..');
-const pify = require('pify');
 const test = require('tape');
 
-const fsP = pify(fs);
+test('npmCliPath() when a non-file entity exists in the expected path on Windows', async t => {
+	const cliPath = join(__dirname, '..\\tmp\\node_modules\\npm\\bin\\npm-cli.js');
 
-test('npmCliPath() when a non-file entity exists in the expected path on Windows', t => {
-  t.plan(1);
+	await promisify(unlink)(cliPath);
+	await promisify(mkdir)(cliPath);
 
-  const cliPath = path.resolve(__dirname, '..\\tmp\\node_modules\\npm\\bin\\npm-cli.js');
+	try {
+		await npmCliPath();
+		t.fail('Unexpectedly succeeded.');
+	} catch ({message}) {
+		t.equal(
+			message,
+			`${cliPath} exists, but it's not a file.`,
+			'should be rejected.'
+		);
+	}
 
-  fsP.unlink(cliPath)
-  .then(() => fsP.mkdir(cliPath))
-  .then(() => npmCliPath())
-  .then(t.fail, err => {
-    t.strictEqual(
-      err.message,
-      `${cliPath} exists, but it's not a file.`,
-      'should be rejected.'
-    );
-  })
-  .catch(t.fail);
+	t.end();
 });
