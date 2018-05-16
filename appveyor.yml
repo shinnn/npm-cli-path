@@ -6,8 +6,8 @@ environment:
   matrix:
     -
       nodejs_version: Stable
-      npm_version: '5.2.0'
-      another_npm_version: '5.1.0'
+      npm_version: '6.0.1'
+      another_npm_version: '6.0.0'
       COVERALLS_REPO_TOKEN:
         secure: sL6Zzmwo7A1Hw7dniqi9n+AdBcx59/7h0LBIt9VlebEPqTq0WtSRrLgEw443w33j
       COVERALLS_SERVICE_NAME: AppVeyor
@@ -16,28 +16,29 @@ environment:
       COVERALLS_GIT_COMMIT: '%APPVEYOR_REPO_COMMIT%'
     -
       nodejs_version: LTS
-      npm_version: '4.6.1'
-      another_npm_version: '4.6.0'
+      npm_version: '5.10.0'
+      another_npm_version: '5.10.0-next.1'
 install:
   - ps: Install-Product node $env:nodejs_version x64
   - 'npm --version # Original npm version'
   - npm install --global npm@%npm_version%
   - set PATH=%APPDATA%\npm;%PATH%
   - 'npm --version # User-installed npm version'
-  - npm install
+  - npm ci
 matrix:
   fast_finish: true
 build: off
 test_script:
-  - node node_modules\istanbul\lib\cli.js cover --dir=cov0 tests\posix.js
-  - node node_modules\istanbul\lib\cli.js cover --dir=cov1 tests\no-npm.js
+  - npx nyc node tests\posix.js
+  - npx nyc node tests\no-npm.js
   - npm config set prefix --global tmp
   - npm config get prefix --global
   - npm install --global npm@%another_npm_version%
-  - node node_modules\istanbul\lib\cli.js cover --dir=cov2 tests\win-has-user-npm.js
-  - node node_modules\istanbul\lib\cli.js cover --dir=cov3 tests\win-has-broken-user-npm.js
+  - npx nyc node tests\win-has-user-npm.js
+  - npx nyc node tests\win-has-broken-user-npm.js
   - npm config set prefix --global foobarbazqux
   - npm config get prefix --global
-  - node node_modules\istanbul\lib\cli.js cover --dir=cov4 tests\win-preinstalled-npm.js
+  - npx nyc node tests\win-preinstalled-npm.js
 on_success:
-  - ps: If ($env:COVERALLS_REPO_TOKEN) {Invoke-Expression 'npm run-script coveralls'}
+  - npx nyc report --reporter=text
+  - ps: If ($env:COVERALLS_REPO_TOKEN) {npx nyc report --reporter=text-lcov | npx --quiet coveralls}
