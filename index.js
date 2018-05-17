@@ -2,17 +2,14 @@
 
 const realExecutablePath = require('real-executable-path');
 
-const getNpmCliPath = realExecutablePath('npm');
+const getNpmCliPath = realExecutablePath('npm', {});
 
 if (process.platform !== 'win32') {
 	module.exports = function npmCliPath() {
 		return getNpmCliPath;
 	};
 } else {
-	const pathLib = require('path');
-
-	const dirname = pathLib.dirname;
-	const join = pathLib.join;
+	const {dirname, join} = require('path');
 
 	const winUserInstalledNpmCliPath = require('win-user-installed-npm-cli-path');
 
@@ -31,10 +28,6 @@ if (process.platform !== 'win32') {
 		return Promise.all([
 			getPreinstalledNpmCliPath,
 			getUserInstalledCliPath
-		]).then(results => {
-			const userInstalledCliPath = results[1];
-
-			return userInstalledCliPath || results[0];
-		});
+		]).then(([preinstalledCliPath, userInstalledCliPath]) => userInstalledCliPath || preinstalledCliPath);
 	};
 }
