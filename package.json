@@ -32,8 +32,8 @@
 		"asynchronously"
 	],
 	"dependencies": {
-		"real-executable-path": "3.0.0-0",
-		"win-user-installed-npm-cli-path": "3.0.0-0"
+		"real-executable-path": "^3.0.0",
+		"win-user-installed-npm-cli-path": "^3.0.0"
 	},
 	"devDependencies": {
 		"@shinnn/eslint-config-node": "^5.0.0",
