@@ -1,9 +1,9 @@
 'use strict';
 
 const {join} = require('path');
+const {mkdir, unlink} = require('fs');
 const {promisify} = require('util');
 
-const {mkdir, unlink} = require('graceful-fs');
 const npmCliPath = require('..');
 const test = require('tape');
 

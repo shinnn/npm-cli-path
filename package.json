@@ -38,8 +38,7 @@
 	"devDependencies": {
 		"@shinnn/eslint-config-node": "^5.0.0",
 		"eslint": "^4.19.1",
-		"graceful-fs": "^4.1.11",
-		"nyc": "^11.8.0",
+		"nyc": "^12.0.2",
 		"pretend-platform": "^2.0.0",
 		"tape": "^4.9.0"
 	},
