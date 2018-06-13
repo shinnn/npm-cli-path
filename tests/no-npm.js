@@ -3,6 +3,7 @@
 const test = require('tape');
 
 process.env.PATH = 'node_modules';
+delete process.env.npm_execpath;
 
 test('npmCliPath() when npm is not installed', async t => {
 	const npmCliPath = require('..');

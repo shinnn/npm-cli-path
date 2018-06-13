@@ -6,8 +6,8 @@ environment:
   matrix:
     -
       nodejs_version: Stable
-      npm_version: '6.0.1'
-      another_npm_version: '6.0.0'
+      npm_version: '6.1.0'
+      another_npm_version: '6.0.1'
       COVERALLS_REPO_TOKEN:
         secure: sL6Zzmwo7A1Hw7dniqi9n+AdBcx59/7h0LBIt9VlebEPqTq0WtSRrLgEw443w33j
       COVERALLS_SERVICE_NAME: AppVeyor
@@ -29,6 +29,7 @@ matrix:
   fast_finish: true
 build: off
 test_script:
+  - npm run-script test-npm-run --silent
   - npx nyc node tests\posix.js
   - npx nyc node tests\no-npm.js
   - npm config set prefix --global tmp

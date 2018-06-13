@@ -1,37 +1,45 @@
 'use strict';
 
-const realExecutablePath = require('real-executable-path');
+const executingNpmPath = require('executing-npm-path');
 
-const getNpmCliPath = realExecutablePath('npm');
-
-if (process.platform !== 'win32') {
+if (executingNpmPath) {
 	module.exports = async function npmCliPath() {
-		return getNpmCliPath;
+		return executingNpmPath;
 	};
 } else {
-	const {dirname, join} = require('path');
+	const realExecutablePath = require('real-executable-path');
 
-	const winUserInstalledNpmCliPath = require('win-user-installed-npm-cli-path');
+	const getNpmCliPath = realExecutablePath('npm');
 
-	const getPreinstalledNpmCliPath = (async () => join(dirname(await getNpmCliPath), 'node_modules\\npm\\bin\\npm-cli.js'))();
-	const getUserInstalledCliPath = (async () => {
-		try {
-			return await winUserInstalledNpmCliPath();
-		} catch (err) {
-			if (/lstat .*\\node_modules\\npm\\bin\\npm-cli\.js/.test(err.message)) {
-				return null;
+	if (process.platform !== 'win32') {
+		module.exports = async function npmCliPath() {
+			return getNpmCliPath;
+		};
+	} else {
+		const {dirname, join} = require('path');
+
+		const winUserInstalledNpmCliPath = require('win-user-installed-npm-cli-path');
+
+		const getPreinstalledNpmCliPath = (async () => join(dirname(await getNpmCliPath), 'node_modules\\npm\\bin\\npm-cli.js'))();
+		const getUserInstalledCliPath = (async () => {
+			try {
+				return await winUserInstalledNpmCliPath();
+			} catch (err) {
+				if (/lstat .*\\node_modules\\npm\\bin\\npm-cli\.js/.test(err.message)) {
+					return null;
+				}
+
+				throw err;
 			}
+		})();
 
-			throw err;
-		}
-	})();
+		module.exports = async function npmCliPath() {
+			const [preinstalledCliPath, userInstalledCliPath] = await Promise.all([
+				getPreinstalledNpmCliPath,
+				getUserInstalledCliPath
+			]);
 
-	module.exports = async function npmCliPath() {
-		const [preinstalledCliPath, userInstalledCliPath] = await Promise.all([
-			getPreinstalledNpmCliPath,
-			getUserInstalledCliPath
-		]);
-
-		return userInstalledCliPath || preinstalledCliPath;
-	};
+			return userInstalledCliPath || preinstalledCliPath;
+		};
+	}
 }

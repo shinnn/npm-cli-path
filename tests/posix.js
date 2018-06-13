@@ -1,5 +1,7 @@
 'use strict';
 
+delete process.env.npm_execpath;
+
 const pretendPlatform = require('pretend-platform');
 const test = require('tape');
 
@@ -15,6 +17,7 @@ test('npmCliPath() on POSIX', async t => {
 
 	try {
 		await npmCliPath();
+		t.fail('Unexpectedly succeeded.');
 	} catch (err) {
 		t.ok(err instanceof Error, 'should return a Promise instance.');
 	}

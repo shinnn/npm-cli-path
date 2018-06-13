@@ -6,7 +6,8 @@
 	"author": "Shinnosuke Watanabe (https://github.com/shinnn)",
 	"scripts": {
 		"pretest": "eslint --fix --format=codeframe index.js tests",
-		"test": "nyc --clean node tests/no-npm.js && nyc node tests/posix.js && nyc report --reporter=html --reporter=text"
+		"test": "nyc --clean node tests/no-npm.js && nyc node tests/posix.js && npm run-script test-npm-run --silent && nyc report --reporter=html --reporter=text",
+		"test-npm-run": "nyc node tests/npm-run-script.js"
 	},
 	"license": "ISC",
 	"files": [
@@ -32,6 +33,7 @@
 		"asynchronously"
 	],
 	"dependencies": {
+		"executing-npm-path": "^0.0.0",
 		"real-executable-path": "^3.0.0",
 		"win-user-installed-npm-cli-path": "^3.0.0"
 	},
