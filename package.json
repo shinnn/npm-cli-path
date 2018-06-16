@@ -1,6 +1,6 @@
 {
 	"name": "npm-cli-path",
-	"version": "3.0.0",
+	"version": "3.1.0",
 	"description": "Resolve the path of `npm-cli.js` included in the globally installed npm CLI",
 	"repository": "shinnn/npm-cli-path",
 	"author": "Shinnosuke Watanabe (https://github.com/shinnn)",
@@ -33,7 +33,7 @@
 		"asynchronously"
 	],
 	"dependencies": {
-		"executing-npm-path": "^0.0.0",
+		"executing-npm-path": "^1.0.0",
 		"real-executable-path": "^3.0.0",
 		"win-user-installed-npm-cli-path": "^3.0.0"
 	},
@@ -42,7 +42,7 @@
 		"eslint": "^4.19.1",
 		"nyc": "^12.0.2",
 		"pretend-platform": "^2.0.0",
-		"tape": "^4.9.0"
+		"tape": "^4.9.1"
 	},
 	"eslintConfig": {
 		"extends": "@shinnn/node"
