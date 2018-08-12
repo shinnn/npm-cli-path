@@ -7,9 +7,12 @@ if (executingNpmPath) {
 		return executingNpmPath;
 	};
 } else {
-	const realExecutablePath = require('real-executable-path');
+	const {promisify} = require('util');
+	const {realpath} = require('fs');
 
-	const getNpmCliPath = realExecutablePath('npm');
+	const which = require('which');
+
+	const getNpmCliPath = (async () => promisify(realpath)(await promisify(which)('npm')))();
 
 	if (process.platform !== 'win32') {
 		module.exports = async function npmCliPath() {
