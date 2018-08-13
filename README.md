@@ -33,10 +33,10 @@ const npmCliPath = require('npm-cli-path');
 
 Return: `Promise<string>`
 
-It resolves the path of [`npm-cli.js`][npm-cli] which is the entry point of [npm](https://github.com/npm/npm) CLI.
+It resolves the path of [`npm-cli.js`][npm-cli] which is the entry point of [npm CLI](https://github.com/npm/cli).
 
 ## License
 
 [ISC License](./LICENSE) © 2017 - 2018 Shinnosuke Watanabe
 
-[npm-cli]: https://github.com/npm/npm/blob/master/bin/npm-cli.js
+[npm-cli]: https://github.com/npm/cli/blob/latest/bin/npm-cli.js
