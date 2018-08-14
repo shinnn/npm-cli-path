@@ -28,7 +28,7 @@ if (executingNpmPath) {
 			try {
 				return await winUserInstalledNpmCliPath();
 			} catch (err) {
-				if (/lstat .*\\node_modules\\npm\\bin\\npm-cli\.js/.test(err.message)) {
+				if (/lstat .*\\node_modules\\npm\\bin\\npm-cli\.js/u.test(err.message)) {
 					return null;
 				}
 

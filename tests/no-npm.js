@@ -13,7 +13,7 @@ test('npmCliPath() when npm is not installed', async t => {
 		t.fail('Unexpectedly succeeded.');
 	} catch ({code}) {
 		// If we drop Node.js 8 support, just: t.equal(code, 'ENOENT', 'should be rejected.');
-		t.ok(/^(ENOENT|1)$/.test(String(code)), 'should be rejected.');
+		t.ok(/^(ENOENT|1)$/u.test(String(code)), 'should be rejected.');
 	}
 
 	t.end();
