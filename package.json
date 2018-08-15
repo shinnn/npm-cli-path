@@ -1,11 +1,11 @@
 {
 	"name": "npm-cli-path",
-	"version": "3.1.0",
+	"version": "3.1.1",
 	"description": "Resolve the path of `npm-cli.js` included in the globally installed npm CLI",
 	"repository": "shinnn/npm-cli-path",
 	"author": "Shinnosuke Watanabe (https://github.com/shinnn)",
 	"scripts": {
-		"pretest": "eslint --fix --format=codeframe index.js tests",
+		"pretest": "eslint .",
 		"test": "nyc --clean node tests/no-npm.js && nyc node tests/posix.js && npm run-script test-npm-run --silent && nyc report --reporter=html --reporter=text",
 		"test-npm-run": "nyc node tests/npm-run-script.js"
 	},
