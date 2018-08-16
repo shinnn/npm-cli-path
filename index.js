@@ -12,34 +12,35 @@ if (executingNpmPath) {
 
 	const which = require('which');
 
-	const getNpmCliPath = (async () => promisify(realpath)(await promisify(which)('npm')))();
+	const promisifiedRealpath = promisify(realpath);
+	const promisifiedWhich = promisify(which);
+	const getNpmCliPath = async () => promisifiedRealpath(await promisifiedWhich('npm'));
 
 	if (process.platform !== 'win32') {
 		module.exports = async function npmCliPath() {
-			return getNpmCliPath;
+			return getNpmCliPath();
 		};
 	} else {
 		const {dirname, join} = require('path');
 
 		const winUserInstalledNpmCliPath = require('win-user-installed-npm-cli-path');
 
-		const getPreinstalledNpmCliPath = (async () => join(dirname(await getNpmCliPath), 'node_modules\\npm\\bin\\npm-cli.js'))();
-		const getUserInstalledCliPath = (async () => {
-			try {
-				return await winUserInstalledNpmCliPath();
-			} catch (err) {
-				if (/lstat .*\\node_modules\\npm\\bin\\npm-cli\.js/u.test(err.message)) {
-					return null;
-				}
-
-				throw err;
-			}
-		})();
-
 		module.exports = async function npmCliPath() {
 			const [preinstalledCliPath, userInstalledCliPath] = await Promise.all([
-				getPreinstalledNpmCliPath,
-				getUserInstalledCliPath
+				(async function getPreinstalledNpmCliPath() {
+					return join(dirname(await getNpmCliPath), 'node_modules\\npm\\bin\\npm-cli.js');
+				})(),
+				(async function getUserInstalledCliPath() {
+					try {
+						return await winUserInstalledNpmCliPath();
+					} catch (err) {
+						if (/lstat .*\\node_modules\\npm\\bin\\npm-cli\.js/u.test(err.message)) {
+							return null;
+						}
+
+						throw err;
+					}
+				})()
 			]);
 
 			return userInstalledCliPath || preinstalledCliPath;
