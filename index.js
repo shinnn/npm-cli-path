@@ -28,7 +28,7 @@ if (executingNpmPath) {
 		module.exports = async function npmCliPath() {
 			const [preinstalledCliPath, userInstalledCliPath] = await Promise.all([
 				(async function getPreinstalledNpmCliPath() {
-					return join(dirname(await getNpmCliPath), 'node_modules\\npm\\bin\\npm-cli.js');
+					return join(dirname(await getNpmCliPath()), 'node_modules\\npm\\bin\\npm-cli.js');
 				})(),
 				(async function getUserInstalledCliPath() {
 					try {
