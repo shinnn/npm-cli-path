@@ -1,6 +1,6 @@
 {
 	"name": "npm-cli-path",
-	"version": "3.1.1",
+	"version": "3.1.2",
 	"description": "Resolve the path of `npm-cli.js` included in the globally installed npm CLI",
 	"repository": "shinnn/npm-cli-path",
 	"author": "Shinnosuke Watanabe (https://github.com/shinnn)",
@@ -39,7 +39,7 @@
 	},
 	"devDependencies": {
 		"@shinnn/eslint-config-node": "^6.0.0",
-		"eslint": "^5.3.0",
+		"eslint": "^5.4.0",
 		"nyc": "^13.0.1",
 		"pretend-platform": "^2.0.0",
 		"tape": "^4.9.1"
