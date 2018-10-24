@@ -42,4 +42,4 @@ test_script:
   - npx nyc node tests\win-preinstalled-npm.js
 on_success:
   - npx nyc report --reporter=text
-  - ps: If ($env:COVERALLS_REPO_TOKEN) {npx nyc report --reporter=text-lcov | npx --quiet coveralls}
+  - ps: If ($env:COVERALLS_REPO_TOKEN) {npx nyc report | npx --quiet coveralls}

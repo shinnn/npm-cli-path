@@ -6,7 +6,7 @@
 	"author": "Shinnosuke Watanabe (https://github.com/shinnn)",
 	"scripts": {
 		"pretest": "eslint .",
-		"test": "nyc --clean node tests/no-npm.js && nyc node tests/posix.js && npm run-script test-npm-run --silent && nyc report --reporter=html --reporter=text",
+		"test": "nyc --clean node tests/no-npm.js && nyc node tests/posix.js && npm run-script test-npm-run --silent && nyc report",
 		"test-npm-run": "nyc node tests/npm-run-script.js"
 	},
 	"license": "ISC",
@@ -38,16 +38,18 @@
 		"win-user-installed-npm-cli-path": "^3.0.0"
 	},
 	"devDependencies": {
-		"@shinnn/eslint-config-node": "^6.0.0",
-		"eslint": "^5.4.0",
-		"nyc": "^13.0.1",
+		"@shinnn/eslint-config": "^6.7.5",
+		"eslint": "^5.7.0",
+		"nyc": "^13.1.0",
+		"nyc-config-common": "^1.0.1",
 		"pretend-platform": "^2.0.0",
 		"tape": "^4.9.1"
 	},
 	"eslintConfig": {
-		"extends": "@shinnn/node"
+		"extends": "@shinnn"
 	},
 	"nyc": {
+		"extends": "nyc-config-common",
 		"clean": false,
 		"include": "index.js",
 		"silent": true
