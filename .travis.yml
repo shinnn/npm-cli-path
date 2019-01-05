@@ -21,3 +21,4 @@ jobs:
     - npm config get prefix --global
     - npx nyc node tests\\win-preinstalled-npm.js
     - npx nyc report --reporter=text
+after_success: npx nyc report > coverage.lcov && bash <(curl -s https://codecov.io/bash) -X gcov

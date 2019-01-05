@@ -1,8 +1,8 @@
 # npm-cli-path
 
 [![npm version](https://img.shields.io/npm/v/npm-cli-path.svg)](https://www.npmjs.com/package/npm-cli-path)
-[![Coverage Status](https://img.shields.io/coveralls/shinnn/npm-cli-path.svg)](https://coveralls.io/github/shinnn/npm-cli-path?branch=master)
 [![Build Status](https://travis-ci.com/shinnn/npm-cli-path.svg?branch=master)](https://travis-ci.com/shinnn/npm-cli-path)
+[![codecov](https://codecov.io/gh/shinnn/npm-cli-path/branch/master/graph/badge.svg)](https://codecov.io/gh/shinnn/npm-cli-path)
 
 Resolve the path of [`npm-cli.js`][npm-cli] included in the globally installed [npm](https://www.npmjs.com/) CLI
 
