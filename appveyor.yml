@@ -14,10 +14,6 @@ environment:
       COVERALLS_SERVICE_JOB_ID: '%APPVEYOR_JOB_ID%'
       COVERALLS_GIT_BRANCH: '%APPVEYOR_REPO_BRANCH%'
       COVERALLS_GIT_COMMIT: '%APPVEYOR_REPO_COMMIT%'
-    -
-      nodejs_version: LTS
-      npm_version: '5.10.0'
-      another_npm_version: '5.10.0-next.1'
 install:
   - ps: Install-Product node $env:nodejs_version x64
   - 'npm --version # Original npm version'
