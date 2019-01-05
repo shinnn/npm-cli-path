@@ -1,9 +1,8 @@
 # npm-cli-path
 
 [![npm version](https://img.shields.io/npm/v/npm-cli-path.svg)](https://www.npmjs.com/package/npm-cli-path)
-[![Build Status](https://travis-ci.org/shinnn/npm-cli-path.svg?branch=master)](https://travis-ci.org/shinnn/npm-cli-path)
-[![Build status](https://ci.appveyor.com/api/projects/status/8osd3at404d3jrxi/branch/master?svg=true)](https://ci.appveyor.com/project/ShinnosukeWatanabe/npm-cli-path/branch/master)
 [![Coverage Status](https://img.shields.io/coveralls/shinnn/npm-cli-path.svg)](https://coveralls.io/github/shinnn/npm-cli-path?branch=master)
+[![Build Status](https://travis-ci.com/shinnn/npm-cli-path.svg?branch=master)](https://travis-ci.com/shinnn/npm-cli-path)
 
 Resolve the path of [`npm-cli.js`][npm-cli] included in the globally installed [npm](https://www.npmjs.com/) CLI
 
@@ -17,7 +16,7 @@ const npmCliPath = require('npm-cli-path');
 
 ## Installation
 
-[Use](https://docs.npmjs.com/cli/install) [npm](https://docs.npmjs.com/getting-started/what-is-npm).
+[Use](https://docs.npmjs.com/cli/install) [npm](https://docs.npmjs.com/about-npm/).
 
 ```
 npm install npm-cli-path
@@ -37,6 +36,6 @@ It resolves the path of [`npm-cli.js`][npm-cli] which is the entry point of [npm
 
 ## License
 
-[ISC License](./LICENSE) © 2017 - 2018 Shinnosuke Watanabe
+[ISC License](./LICENSE) © 2017 - 2019 Shinnosuke Watanabe
 
 [npm-cli]: https://github.com/npm/cli/blob/latest/bin/npm-cli.js

@@ -4,12 +4,12 @@
 	"description": "Resolve the path of `npm-cli.js` included in the globally installed npm CLI",
 	"repository": "shinnn/npm-cli-path",
 	"author": "Shinnosuke Watanabe (https://github.com/shinnn)",
+	"license": "ISC",
 	"scripts": {
 		"pretest": "eslint .",
-		"test": "nyc --clean node tests/no-npm.js && nyc node tests/posix.js && npm run-script test-npm-run --silent && nyc report",
+		"test": "nyc --clean node tests/no-npm.js && npm run-script test-npm-run --silent && nyc report --reporter=text",
 		"test-npm-run": "nyc node tests/npm-run-script.js"
 	},
-	"license": "ISC",
 	"files": [
 		"index.js"
 	],
@@ -42,7 +42,6 @@
 		"eslint": "^5.7.0",
 		"nyc": "^13.1.0",
 		"nyc-config-common": "^1.0.1",
-		"pretend-platform": "^2.0.0",
 		"tape": "^4.9.1"
 	},
 	"eslintConfig": {

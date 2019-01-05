@@ -1,4 +1,23 @@
 if: branch !~ ^v\d
-dist: xenial
 language: node_js
 node_js: node
+jobs:
+  include:
+  - dist: xenial
+  - os: windows
+    env: npm_version=6.5.0 another_npm_version=6.4.0
+    # https://github.com/jasongin/nvs/blob/v1.5.2/test/cli/gitBashTests.js#L36-L39
+    before_install: cmd "/C npm install --global npm@${npm_version}"
+    before_script: npm --version
+    script:
+    - npm run-script test-npm-run --silent
+    - npx nyc node tests\\no-npm.js
+    - npm config set prefix --global tmp
+    - npm config get prefix --global
+    - cmd "/C npm install --global npm@${another_npm_version}"
+    - npx nyc node tests\\win-has-user-npm.js
+    - npx nyc node tests\\win-has-broken-user-npm.js
+    - npm config set prefix --global foobarbazqux
+    - npm config get prefix --global
+    - npx nyc node tests\\win-preinstalled-npm.js
+    - npx nyc report --reporter=text
