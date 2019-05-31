@@ -8,13 +8,12 @@ if (executingNpmPath) {
 	};
 } else {
 	const {promisify} = require('util');
-	const {realpath} = require('fs');
+	const {realpath} = require('fs').promises;
 
 	const which = require('which');
 
-	const promisifiedRealpath = promisify(realpath);
 	const promisifiedWhich = promisify(which);
-	const getNpmCliPath = async () => promisifiedRealpath(await promisifiedWhich('npm'));
+	const getNpmCliPath = async () => realpath(await promisifiedWhich('npm'));
 
 	if (process.platform !== 'win32') {
 		module.exports = async function npmCliPath() {

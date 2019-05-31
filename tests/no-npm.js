@@ -1,20 +1,14 @@
 'use strict';
 
-const test = require('tape');
+const {rejects} = require('assert').strict;
+
+const test = require('testit');
 
 process.env.PATH = 'node_modules';
 delete process.env.npm_execpath;
 
-test('npmCliPath() when npm is not installed', async t => {
+test('fail when npm CLI is not installed', async () => {
 	const npmCliPath = require('..');
 
-	try {
-		await npmCliPath();
-		t.fail('Unexpectedly succeeded.');
-	} catch ({code}) {
-		// If we drop Node.js 8 support, just: t.equal(code, 'ENOENT', 'should be rejected.');
-		t.ok(/^(ENOENT|1)$/u.test(String(code)), 'should be rejected.');
-	}
-
-	t.end();
+	await rejects(async () => npmCliPath(), {code: 'ENOENT'});
 });

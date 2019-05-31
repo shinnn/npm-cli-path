@@ -36,6 +36,6 @@ It resolves the path of [`npm-cli.js`][npm-cli] which is the entry point of [npm
 
 ## License
 
-[ISC License](./LICENSE) © 2017 - 2019 Shinnosuke Watanabe
+[ISC License](./LICENSE) © 2017 - 2019 Watanabe Shinnosuke
 
 [npm-cli]: https://github.com/npm/cli/blob/latest/bin/npm-cli.js

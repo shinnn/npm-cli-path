@@ -3,12 +3,12 @@
 	"version": "3.1.2",
 	"description": "Resolve the path of `npm-cli.js` included in the globally installed npm CLI",
 	"repository": "shinnn/npm-cli-path",
-	"author": "Shinnosuke Watanabe (https://github.com/shinnn)",
+	"author": "Watanabe Shinnosuke (https://github.com/shinnn)",
 	"license": "ISC",
 	"scripts": {
 		"pretest": "eslint .",
-		"test": "nyc --clean node tests/no-npm.js && npm run-script test-npm-run --silent && nyc report --reporter=text",
-		"test-npm-run": "nyc node tests/npm-run-script.js"
+		"test": "c8 --clean node tests/no-npm.js && npm run-script test-npm-run --silent && c8 report --reporter=text",
+		"test-npm-run": "c8 node tests/npm-run-script.js"
 	},
 	"files": [
 		"index.js"
@@ -35,22 +35,20 @@
 	"dependencies": {
 		"executing-npm-path": "^1.0.0",
 		"which": "^1.3.1",
-		"win-user-installed-npm-cli-path": "^3.0.0"
+		"win-user-installed-npm-cli-path": "^4.0.0"
 	},
 	"devDependencies": {
-		"@shinnn/eslint-config": "^6.7.5",
-		"eslint": "^5.7.0",
-		"nyc": "^13.1.0",
-		"nyc-config-common": "^1.0.1",
-		"tape": "^4.9.1"
+		"@shinnn/eslint-config": "^6.10.4",
+		"c8": "^5.0.1",
+		"eslint": "^5.16.0",
+		"testit": "^3.1.0"
 	},
 	"eslintConfig": {
 		"extends": "@shinnn"
 	},
-	"nyc": {
-		"extends": "nyc-config-common",
+	"c8": {
 		"clean": false,
 		"include": "index.js",
-		"silent": true
+		"reporter": "none"
 	}
 }

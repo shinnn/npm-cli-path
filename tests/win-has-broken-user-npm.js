@@ -1,28 +1,16 @@
 'use strict';
 
 const {join} = require('path');
-const {mkdir, unlink} = require('fs');
-const {promisify} = require('util');
+const {mkdir, unlink} = require('fs').promises;
+const {rejects} = require('assert').strict;
 
 const npmCliPath = require('..');
-const test = require('tape');
+const test = require('testit');
 
-test('npmCliPath() when a non-file entity exists in the expected path on Windows', async t => {
+test('fail when a non-file entity exists in the expected path on Windows', async () => {
 	const cliPath = join(__dirname, '..\\tmp\\node_modules\\npm\\bin\\npm-cli.js');
 
-	await promisify(unlink)(cliPath);
-	await promisify(mkdir)(cliPath);
-
-	try {
-		await npmCliPath();
-		t.fail('Unexpectedly succeeded.');
-	} catch ({message}) {
-		t.equal(
-			message,
-			`${cliPath} exists, but it's not a file.`,
-			'should be rejected.'
-		);
-	}
-
-	t.end();
+	await unlink(cliPath);
+	await mkdir(cliPath);
+	await rejects(async () => npmCliPath(), {message: `${cliPath} exists, but it's not a file.`});
 });
